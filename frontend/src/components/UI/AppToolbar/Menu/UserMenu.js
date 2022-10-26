@@ -1,13 +1,16 @@
 import * as React from "react";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {logoutUser} from "../../../../store/actions/usersActions";
 
 
 const UserMenu = ({user}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const dispatch = useDispatch();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,6 +30,7 @@ const UserMenu = ({user}) => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
+                Hello, {user.displayName}!
             </Button>
             <Menu
                 id="basic-menu"
@@ -38,8 +42,9 @@ const UserMenu = ({user}) => {
                 }}
             >
                 <MenuItem onClick={handleClose}>
-                    sm button
+                        Add cocktail
                 </MenuItem>
+                <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
             </Menu>
         </div>
     );

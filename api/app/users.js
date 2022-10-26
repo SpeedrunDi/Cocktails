@@ -78,15 +78,6 @@ router.post('/facebookLogin', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
-    try {
-        const user = await User.find();
-        res.send(user);
-    } catch {
-        res.sendStatus(500);
-    }
-});
-
 router.delete('/sessions', async (req, res) => {
     const token = req.get('Authorization');
     const success = {message: 'Success'};

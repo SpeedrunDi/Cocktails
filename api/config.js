@@ -11,6 +11,6 @@ module.exports = {
     },
     facebook: {
         appId: '1054295838568454',
-        appSecret: process.env.FACEBOOK_APP_SECRET
+        appSecret: "9fb644de8b3bbf6eb27b87a4722d25db"
     },
 };
