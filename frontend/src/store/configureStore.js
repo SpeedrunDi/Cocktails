@@ -2,12 +2,14 @@ import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import usersReducer from "./reducers/usersReducer";
+import cocktailReducer from "./reducers/cocktailsReducer";
 import axiosApi from "../axiosApi";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     users: usersReducer,
+    cocktails: cocktailReducer,
 });
 
 const persistedState = loadFromLocalStorage();
