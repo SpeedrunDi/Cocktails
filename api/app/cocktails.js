@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/new_cocktail', upload.single('image'), async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   const {title, recipe, ingredients} = req.body;
 
   const cocktailData = {

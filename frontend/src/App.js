@@ -3,12 +3,14 @@ import Layout from "./components/UI/Layout/Layout";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
 import MainPage from "./containers/MainPage/MainPage";
+import AddIngredients from "./containers/AddIngredients/AddIngredients";
 
 const App = () => {
     return (
         <Layout>
             <Switch>
                 <Route path="/" exact component={MainPage}/>
+                <Route path="/cocktail/new" component={AddIngredients}/>
                 <Route path="/register" exact component={Register}/>
                 <Route path="/login" exact component={Login}/>
                 <Route render={() => <h1>Not Found</h1>}/>
