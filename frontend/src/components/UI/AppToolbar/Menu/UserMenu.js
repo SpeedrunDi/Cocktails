@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {logoutUser} from "../../../../store/actions/usersActions";
-import {Link} from "react-router-dom";
 
 
 const UserMenu = ({user}) => {
@@ -42,9 +41,6 @@ const UserMenu = ({user}) => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose} component={Link} to="cocktail/new">
-                        Add cocktail
-                </MenuItem>
                 <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
             </Menu>
         </div>
