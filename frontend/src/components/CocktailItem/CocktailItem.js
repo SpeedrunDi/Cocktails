@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {apiUrl} from "../../config";
-import noImageFile from '../../assets/images/2048px-No_image_available.svg.png';
+import noImage from "../../assets/images/noImage.png";
 import {makeStyles} from "tss-react/mui";
 import {Card, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography} from "@mui/material";
 import PropTypes from "prop-types";
@@ -23,7 +23,7 @@ const ArrowForwardIcon = () => {
 const CocktailItem = ({name, recipe, id, image}) => {
     const {classes} = useStyles();
 
-    let cardImage = noImageFile;
+    let cardImage = noImage;
 
     if (image) {
         cardImage = apiUrl + '/uploads/' + image;
