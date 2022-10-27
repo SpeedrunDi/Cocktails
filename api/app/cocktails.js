@@ -69,7 +69,9 @@ router.get('/:id', async (req, res) => {
   }
 
   const query = {};
+
   query.published = {$eq: true};
+
   query._id = id
 
   try {
@@ -98,7 +100,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/new_cocktail', auth, upload.single('image'), async (req, res) => {
+router.post('/', auth,upload.single('image'), async (req, res) => {
   const {title, recipe, ingredients} = req.body;
 
   const cocktailData = {
