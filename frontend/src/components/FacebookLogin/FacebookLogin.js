@@ -9,8 +9,9 @@ import {facebookLogin} from "../../store/actions/usersActions";
 const FacebookLogin = () => {
     const dispatch = useDispatch();
 
-    const facebookResponse = (resp) => {
-        dispatch(facebookLogin(resp));
+    const facebookResponse = (response) => {
+      console.log(response);
+      dispatch(facebookLogin(response));
     }
 
     return (

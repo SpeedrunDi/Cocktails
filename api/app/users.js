@@ -42,10 +42,10 @@ router.post('/sessions', async (req, res) => {
 
 router.post('/facebookLogin', async (req, res) => {
     const inputToken = req.body.accessToken;
+
     const accessToken = config.facebook.appId + '|' + config.facebook.appSecret;
 
     const debugTokenUrl = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`;
-
     try {
         const response = await axios.get(debugTokenUrl);
 
