@@ -7,6 +7,9 @@ import {ToastContainer} from "react-toastify";
 import {AppBar, CardMedia, Grid, Toolbar, Typography} from "@mui/material";
 import Anonymous from "./Menu/Anonymous";
 import UserMenu from "./Menu/UserMenu";
+import imageNotAvailable from "../../../assets/notavailable.jpeg";
+
+import {apiUrl} from "../../../config";
 
 const useStyles = makeStyles()(theme => ({
     mainLink: {
@@ -24,6 +27,15 @@ const useStyles = makeStyles()(theme => ({
 const AppToolbar = () => {
     const {classes} = useStyles();
     const user = useSelector(state => state.users.user);
+
+    let cardImage = imageNotAvailable;
+
+    if (user && user.avatar.includes('fixtures')) {
+        cardImage = apiUrl + '/' + user.avatar;
+    } else if (user) {
+        cardImage = user.avatar
+    }
+
 
     return (
         <>
@@ -46,7 +58,7 @@ const AppToolbar = () => {
                                     <CardMedia
                                         component="img"
                                         height="50"
-                                        image={user.avatar}
+                                        image={cardImage}
                                         alt={user.name}
                                         style={{margin: 'auto 0'}}
                                     />

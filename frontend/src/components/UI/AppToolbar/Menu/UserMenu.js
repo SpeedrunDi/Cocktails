@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {logoutUser} from "../../../../store/actions/usersActions";
+import {Link} from "react-router-dom";
 
 
 const UserMenu = ({user}) => {
@@ -44,6 +45,8 @@ const UserMenu = ({user}) => {
                 <MenuItem onClick={handleClose}>
                         Add cocktail
                 </MenuItem>
+                {user && user.role === 'admin' && <MenuItem component={Link} to='/admin_panel'>Admin panel</MenuItem>}
+                {user && user.role === 'user' && <MenuItem component={Link} to='/user_panel'>My panel</MenuItem>}
                 <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
             </Menu>
         </div>
