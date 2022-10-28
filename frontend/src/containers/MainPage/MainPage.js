@@ -6,7 +6,6 @@ import {fetchCocktails} from "../../store/actions/cocktailActions";
 import CocktailsLayout from "../../components/CocktailsLayout/CocktailsLayout";
 import CocktailItem from "../../components/CocktailItem/CocktailItem";
 
-
 const useStyles = makeStyles()(theme => ({
     title: {
         [theme.breakpoints.down('xs')]: {
@@ -15,8 +14,7 @@ const useStyles = makeStyles()(theme => ({
     }
 }));
 
-
-const MainPage = () => {
+const MainPage = ({history}) => {
     const {classes} = useStyles();
     const dispatch = useDispatch();
     const user = useSelector(state => state.users.user);
@@ -26,6 +24,12 @@ const MainPage = () => {
     useEffect(() => {
         dispatch(fetchCocktails(user, '?publish=true'));
     }, [dispatch, user]);
+
+    useEffect(() => {
+       if (!user) {
+           history.push("/login");
+       }
+    }, [user, history]);
 
     return (
 

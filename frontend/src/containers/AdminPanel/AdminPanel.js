@@ -10,14 +10,15 @@ const AdminPanel = () => {
   const cocktails = useSelector(state => state.cocktails.cocktails);
   const user = useSelector(state => state.users.user);
 
-
-  if((user && user.role !== 'admin') || !user) {
-    dispatch(historyPush('/login'));
-  }
-
   useEffect(() => {
     dispatch(fetchCocktails(user, ''));
   },[dispatch, user]);
+
+  useEffect(() => {
+    if((user && user.role !== 'admin') || !user) {
+      dispatch(historyPush('/login'));
+    }
+  }, [user, dispatch]);
 
   const handleChange = (status, id) => {
     const data = {published: status}
@@ -33,7 +34,7 @@ const AdminPanel = () => {
     <Grid container direction='column' sx={{maxWidth: '70%', margin: '30px'}}>
       {cocktails &&
         <Grid item sx={{margin: '25px 0'}}>
-          <Typography variant='h6'>Pending to approve</Typography>
+          <Typography variant='h4' textAlign={"center"} mb={"20px"}>Pending to approve</Typography>
           <Panel
             data={cocktails}
             title='Cocktails'

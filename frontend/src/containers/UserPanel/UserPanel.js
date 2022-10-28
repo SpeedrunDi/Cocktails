@@ -3,6 +3,7 @@ import {Grid, Typography} from "@mui/material";
 import Panel from "../../components/Panel/Panel";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCocktails} from "../../store/actions/cocktailActions";
+import {historyPush} from "../../store/actions/historyActions";
 
 const UserPanel = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,18 @@ const UserPanel = () => {
     dispatch(fetchCocktails(user,'/my_cocktails'));
   },[dispatch, user]);
 
+  useEffect(() => {
+    if((user && user.role !== 'user') || !user) {
+      dispatch(historyPush('/login'));
+    }
+  }, [user, dispatch]);
+
 
   return (
     <Grid container direction='column' sx={{maxWidth: '70%', margin: '30px'}}>
       {cocktails &&
         <Grid item sx={{margin: '25px 0'}}>
-          <Typography variant='h6'>My cocktails</Typography>
+          <Typography variant='h4' textAlign={"center"} mb={"20px"}>My cocktails</Typography>
           <Panel
             data={cocktails}
             title='Cocktails'

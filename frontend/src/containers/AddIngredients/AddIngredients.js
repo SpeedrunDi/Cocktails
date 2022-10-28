@@ -34,12 +34,12 @@ const AddIngredients = () => {
     const {classes} = useStyles();
     const dispatch = useDispatch();
     const [ingredients, setIngredients] = useState([{
-        title: '',
+        name: '',
         amount: '',
     }]);
 
     const [cocktail, setCocktail] = useState({
-        name: '',
+        title: '',
         recipe: '',
         image: '',
     })
@@ -67,7 +67,7 @@ const AddIngredients = () => {
         setIngredients(prevState => [
             ...prevState,
             {
-                title: '',
+                name: '',
                 amount: '',
             }
         ]);
@@ -109,8 +109,8 @@ const AddIngredients = () => {
                         required
                         autoComplete="off"
                         label="Name of cocktail"
-                        name="name"
-                        value={cocktail.name}
+                        name="title"
+                        value={cocktail.title}
                         onChange={inputChangeHandler}
                     />
                 </Grid>
@@ -132,10 +132,10 @@ const AddIngredients = () => {
                             <TextField
                                 required
                                 autoComplete="off"
-                                label="Title"
-                                name="title"
-                                value={ingredients[i].title}
-                                onChange={e => changeIngredients(i, 'title', e.target.value)}
+                                label="Name"
+                                name="name"
+                                value={ingredients[i].name}
+                                onChange={e => changeIngredients(i, 'name', e.target.value)}
                             />
                             <TextField
                                 required

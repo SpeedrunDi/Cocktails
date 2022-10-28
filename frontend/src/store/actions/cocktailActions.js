@@ -102,11 +102,11 @@ export const createCocktail = data => {
   }
 };
 
-export const onActivate = (data,id, user) => {
+export const onActivate = (data, id, user) => {
   return async (dispatch) => {
     try {
       dispatch(onActivateRequest());
-      await axiosApi.patch('/cocktails/'+id, data);
+      await axiosApi.patch('/cocktails/'+ id, data);
 
       dispatch(onActivateSuccess());
       dispatch(fetchCocktails(user, '/'));

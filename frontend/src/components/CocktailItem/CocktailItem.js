@@ -27,10 +27,8 @@ const CocktailItem = ({name, id, image, published}) => {
 
     let cardImage = noImage;
 
-    if (image && image.includes('fixtures')) {
+    if (image) {
         cardImage = apiUrl + '/' + image;
-    } else if (image) {
-        cardImage = image
     }
 
 

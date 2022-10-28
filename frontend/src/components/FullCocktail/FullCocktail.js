@@ -19,10 +19,8 @@ const FullCocktail = ({cocktail, onRate, user, loading}) => {
 
   let image = noImage;
 
-  if (cocktail.image && cocktail.image.includes('fixtures')) {
+  if (cocktail.image) {
     image = apiUrl + '/' + cocktail.image;
-  } else if (cocktail.image) {
-    image = cocktail.image
   }
 
   return (

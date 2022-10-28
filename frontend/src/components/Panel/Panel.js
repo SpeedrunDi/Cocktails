@@ -10,14 +10,14 @@ const Panel = ({data, title, handleChange, deleteHandler}) => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>{title}</TableCell>
+            <TableCell sx={{fontWeight: 'bold', fontSize: '18px'}}>{title}</TableCell>
             {user && user.role === 'admin'
               ? (<>
-                  <TableCell align="center">User</TableCell>
-                  <TableCell align="center">Publish</TableCell>
-                  <TableCell align="center">Delete</TableCell>
+                  <TableCell align="center" sx={{fontWeight: 'bold', fontSize: '18px'}}>User</TableCell>
+                  <TableCell align="center" sx={{fontWeight: 'bold', fontSize: '18px'}}>Publish</TableCell>
+                  <TableCell align="center" sx={{fontWeight: 'bold', fontSize: '18px'}}>Delete</TableCell>
                 </>)
-              : <TableCell align="center">Status</TableCell> }
+              : <TableCell align="center" sx={{fontWeight: 'bold', fontSize: '18px'}}>Status</TableCell> }
 
           </TableRow>
         </TableHead>

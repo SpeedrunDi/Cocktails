@@ -4,7 +4,7 @@ import FullCocktail from "../../components/FullCocktail/FullCocktail";
 import {fetchCocktail, rateCocktail} from "../../store/actions/cocktailActions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
-const Cocktail = ({match}) => {
+const Cocktail = ({match, history}) => {
   const dispatch = useDispatch();
   const cocktail = useSelector(state => state.cocktails.cocktail);
   const user = useSelector(state => state.users.user);
@@ -16,6 +16,12 @@ const Cocktail = ({match}) => {
       dispatch(fetchCocktail(match.params.id));
     }
   }, [match.params.id, dispatch]);
+
+  useEffect(() => {
+    if (!user) {
+      history.push("/login");
+    }
+  }, [user, history]);
 
   const onRateCocktail = async rate => {
     await dispatch(rateCocktail(match.params.id, rate));
