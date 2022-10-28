@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Button, CircularProgress, Grid, Typography} from "@mui/material";
+import {CircularProgress, Grid, Typography} from "@mui/material";
 import {makeStyles} from "tss-react/mui";
 import {fetchCocktails} from "../../store/actions/cocktailActions";
-import {Link} from "react-router-dom";
 import CocktailsLayout from "../../components/CocktailsLayout/CocktailsLayout";
 import CocktailItem from "../../components/CocktailItem/CocktailItem";
 
@@ -25,7 +24,7 @@ const MainPage = () => {
     const cocktails = useSelector(state => state.cocktails.cocktails);
 
     useEffect(() => {
-        dispatch(fetchCocktails(user && user.token));
+        dispatch(fetchCocktails(user, '?publish=true'));
     }, [dispatch, user]);
 
     return (
@@ -36,12 +35,6 @@ const MainPage = () => {
                     <Grid item className={classes.title}>
                         <Typography variant="h4">Cocktails</Typography>
                     </Grid>
-
-                    {user && (
-                        <Grid item>
-                            <Button color="primary" component={Link} to="/cocktail/new">Add</Button>
-                        </Grid>
-                    )}
                 </Grid>
                 <Grid item>
                     <Grid item container justifyContent="center" direction="row" spacing={1}>
@@ -55,9 +48,10 @@ const MainPage = () => {
                             <CocktailItem
                                 key={cocktail._id}
                                 id={cocktail._id}
-                                name={cocktail.name}
+                                name={cocktail.title}
                                 recipe={cocktail.recipe}
                                 image={cocktail.image}
+                                published={cocktail.published}
                             />
                         ))}
                     </Grid>

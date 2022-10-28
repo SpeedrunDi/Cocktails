@@ -44,6 +44,7 @@ const UserMenu = ({user}) => {
             >
                 {user && user.role === 'admin' && <MenuItem component={Link} to='/admin_panel'>Admin panel</MenuItem>}
                 {user && user.role === 'user' && <MenuItem component={Link} to='/user_panel'>My panel</MenuItem>}
+                <MenuItem component={Link} to="/cocktail/new">Add new cocktail</MenuItem>
                 <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
             </Menu>
         </div>

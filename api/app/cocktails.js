@@ -24,7 +24,7 @@ const upload = multer({storage});
 
 router.get('/', async (req, res) => {
   const query = {};
-  query.published = true;
+  query.published = req.query.published;
 
   try {
     const token = req.get('Authorization');
@@ -37,11 +37,13 @@ router.get('/', async (req, res) => {
 
     if (!user) {
       cocktails = await Cocktail.find(query);
+    } else if (user && user.role === 'user') {
+      cocktails = await Cocktail.find({$and: [{published: true}, {user: user._id}]});
     } else {
-      cocktails = await Cocktail
-        .find({$or: [query, {user: user._id}]})
-        .sort({published: 1});
-    }
+        cocktails = await Cocktail
+          .find({$or: [query, {user: user._id}]}).populate('user')
+      }
+
 
     res.send(cocktails);
   } catch (e) {
@@ -53,7 +55,6 @@ router.get('/my_cocktails', auth, async (req, res) => {
   try {
     const cocktails = await Cocktail
       .find({user: req.user._id})
-      .sort({published: 1});
 
     res.send(cocktails);
   } catch (e) {
@@ -131,13 +132,7 @@ router.patch('/:id', auth, permit('admin'), async (req, res) => {
       return res.status(400).send({error: 'ID not valid'});
     }
 
-    const cocktail = await Cocktail.findOneAndUpdate({
-      _id: id
-    }, {
-      published: true
-    }, {
-      returnDocument: 'after',
-    });
+    const cocktail = await Cocktail.findByIdAndUpdate(id, req.body);
 
     if (!cocktail) {
       return res.status(404).send({message: "Cocktail not found!"});
@@ -157,9 +152,7 @@ router.delete('/:id', auth, permit('admin'), async (req, res) => {
   }
 
   try {
-    const cocktail = await Cocktail.findOneAndDelete({
-      _id: id
-    });
+    const cocktail = await Cocktail.findByIdAndDelete(id);
 
     if (!cocktail) {
       return res.status(404).send({message: "Cocktail not found!"});
