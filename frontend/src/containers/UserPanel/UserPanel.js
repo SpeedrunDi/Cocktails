@@ -12,7 +12,7 @@ const UserPanel = () => {
 
   useEffect(() => {
     dispatch(fetchCocktails(user,'/my_cocktails'));
-  },[]);
+  },[dispatch, user]);
 
 
   return (

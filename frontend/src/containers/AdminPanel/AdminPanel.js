@@ -17,7 +17,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     dispatch(fetchCocktails(user, ''));
-  },[]);
+  },[dispatch, user]);
 
   const handleChange = (status, id) => {
     const data = {published: status}

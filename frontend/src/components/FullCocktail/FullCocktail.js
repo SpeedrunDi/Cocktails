@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {FormControl, Grid, InputLabel, LinearProgress, Select, Typography} from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
+import {Box, Grid, LinearProgress, Typography} from "@mui/material";
+import StarsRating from "react-star-rate";
 import {apiUrl} from "../../config";
 import noImage from "../../assets/images/noImage.png";
 
-const STATICESTIMATES = [1, 2, 3, 4, 5];
-
 const FullCocktail = ({cocktail, onRate, user, loading}) => {
   const [rating, setRating] = useState(0);
-  let image = noImage;
 
   useEffect(() => {
     if (cocktail.rates.length !== 0) {
@@ -19,6 +16,8 @@ const FullCocktail = ({cocktail, onRate, user, loading}) => {
       });
     }
   }, [cocktail, user]);
+
+  let image = noImage;
 
   if (cocktail.image && cocktail.image.includes('fixtures')) {
     image = apiUrl + '/' + cocktail.image;
@@ -64,26 +63,14 @@ const FullCocktail = ({cocktail, onRate, user, loading}) => {
         </Typography>
       </Grid>
       <Grid item xs={12} padding="20px">
-        <FormControl fullWidth>
-          <InputLabel id={`rate-label`}>Rate</InputLabel>
-          <Select
-            labelId={`rate-label`}
-            fullWidth
-            label="Rate"
+        <Box width="max-content">
+          <StarsRating
             value={rating}
-            onChange={e => [onRate(e.target.value), setRating(e.target.value)]}
-          >
-            <MenuItem key={'rate'} value="0" disabled>
-              Rate the cocktail &#9734;
-            </MenuItem>
-            {STATICESTIMATES.map(option => (
-              <MenuItem key={option + 'rate'} value={option}>
-                {option} &#9734;
-              </MenuItem>
-            ))}
-          </Select>
-          {loading && <LinearProgress/>}
-        </FormControl>
+            onChange={value => [onRate(value), setRating(value)]}
+            allowHalf={false}
+          />
+          {loading && <LinearProgress color="warning"/>}
+        </Box>
       </Grid>
     </Grid>
   );
