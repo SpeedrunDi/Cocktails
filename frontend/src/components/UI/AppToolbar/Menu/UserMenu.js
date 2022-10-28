@@ -42,9 +42,6 @@ const UserMenu = ({user}) => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>
-                        Add cocktail
-                </MenuItem>
                 {user && user.role === 'admin' && <MenuItem component={Link} to='/admin_panel'>Admin panel</MenuItem>}
                 {user && user.role === 'user' && <MenuItem component={Link} to='/user_panel'>My panel</MenuItem>}
                 <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
