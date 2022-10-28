@@ -18,6 +18,10 @@ export const ON_ACTIVATE_REQUEST = 'ON_ACTIVATE_REQUEST';
 export const ON_ACTIVATE_SUCCESS = 'ON_ACTIVATE_SUCCESS';
 export const ON_ACTIVATE_FAILURE = 'ON_ACTIVATE_FAILURE';
 
+export const RATE_COCKTAIL_REQUEST = 'RATE_COCKTAIL_REQUEST';
+export const RATE_COCKTAIL_SUCCESS = 'RATE_COCKTAIL_SUCCESS';
+export const RATE_COCKTAIL_FAILURE = 'RATE_COCKTAIL_FAILURE';
+
 export const DELETE_COCKTAIL_REQUEST = 'DELETE_COCKTAIL_REQUEST';
 export const DELETE_COCKTAIL_SUCCESS = 'DELETE_COCKTAIL_SUCCESS';
 export const DELETE_COCKTAIL_FAILURE = 'DELETE_COCKTAIL_FAILURE';
@@ -40,6 +44,10 @@ export const onActivateRequest = () => ({type: ON_ACTIVATE_REQUEST});
 export const onActivateSuccess = () => ({type: ON_ACTIVATE_SUCCESS});
 export const onActivateFailure = () => ({type: ON_ACTIVATE_FAILURE});
 
+export const rateCocktailRequest = () => ({type: RATE_COCKTAIL_REQUEST});
+export const rateCocktailSuccess = () => ({type: RATE_COCKTAIL_SUCCESS});
+export const rateCocktailFailure = error => ({type: RATE_COCKTAIL_FAILURE, payload: error});
+
 
 const deleteCocktailRequest = () => ({type: DELETE_COCKTAIL_REQUEST});
 const deleteCocktailSuccess = () => ({type: DELETE_COCKTAIL_SUCCESS});
@@ -51,7 +59,7 @@ export const fetchCocktail = id => {
   return async dispatch => {
     try {
       dispatch (fetchCocktailRequest());
-      const response = await axiosApi.get('/cocktails/:' + id);
+      const response = await axiosApi.get('/cocktails/' + id);
       dispatch (fetchCocktailSuccess(response.data));
     } catch (e) {
       dispatch(fetchCocktailFailure(e));
@@ -104,6 +112,19 @@ export const onActivate = (data,id, user) => {
       dispatch(fetchCocktails(user, '/'));
     } catch (e) {
       dispatch(onActivateFailure(e))
+    }
+  }
+};
+
+export const rateCocktail = (id, rate) => {
+  return async (dispatch) => {
+    try {
+      dispatch(rateCocktailRequest());
+      await axiosApi.patch('/cocktails/rate/'+id, {rate});
+
+      dispatch(rateCocktailSuccess());
+    } catch (e) {
+      dispatch(rateCocktailFailure(e));
     }
   }
 };

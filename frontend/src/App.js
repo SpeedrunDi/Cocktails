@@ -6,6 +6,7 @@ import MainPage from "./containers/MainPage/MainPage";
 import AddIngredients from "./containers/AddIngredients/AddIngredients";
 import AdminPanel from "./containers/AdminPanel/AdminPanel";
 import UserPanel from "./containers/UserPanel/UserPanel";
+import Cocktail from "./containers/Cocktail/Cocktail";
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
             <Switch>
                 <Route path="/" exact component={MainPage}/>
                 <Route path="/cocktail/new" component={AddIngredients}/>
+                <Route path="/cocktail/:id" component={Cocktail}/>
                 <Route path="/register" exact component={Register}/>
                 <Route path="/login" exact component={Login}/>
                 <Route path="/admin_panel" component={AdminPanel}/>

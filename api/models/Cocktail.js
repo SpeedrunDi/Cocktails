@@ -22,7 +22,9 @@ const RatesSchema = new Schema({
   },
   rate: {
     type: Number,
-    required: true
+    required: true,
+    min: 1,
+    max: 5
   }
 });
 
@@ -50,7 +52,12 @@ const CocktailSchema = new Schema({
     default: false,
   },
   ingredients: [IngredientsSchema],
-  rates: [RatesSchema]
+  rates: [RatesSchema],
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5
+  }
 });
 
 CocktailSchema.plugin(uniqueValidator, {message: 'Error, such cocktail already exists!'});

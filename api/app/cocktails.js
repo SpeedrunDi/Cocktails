@@ -124,6 +124,69 @@ router.post('/', auth,upload.single('image'), async (req, res) => {
   }
 });
 
+router.patch('/rate/:id', auth, permit('user', 'admin'), async (req, res) => {
+  const rate = req.body.rate;
+
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      return res.status(400).send({error: 'ID not valid'});
+    }
+
+    let cocktail;
+
+    cocktail = await Cocktail.findById(id);
+
+    if (cocktail.rates.length !== 0) {
+      let update = false;
+      cocktail.rates.find(rateData => {
+        if (rateData.user.equals(req.user._id)) {
+          update = true;
+        }
+      });
+
+      if (!update) {
+        cocktail = await Cocktail.findByIdAndUpdate(
+          {_id: id},
+          {$push: {rates: {user: req.user._id, rate: rate}}},
+          {returnDocument: "after"}
+        );
+      } else {
+        await Cocktail.findByIdAndUpdate({_id: id}, {$pull: {rates: {user: req.user._id}}});
+        cocktail = await Cocktail.findByIdAndUpdate(
+          {_id: id},
+          {$push: {rates: {user: req.user._id, rate: rate}}},
+          {returnDocument: "after"}
+          );
+      }
+    } else {
+      cocktail = await Cocktail.findByIdAndUpdate(
+        {_id: id},
+        {$push: {rates: {user: req.user._id, rate: rate}}},
+        {returnDocument: "after"}
+      );
+    }
+
+    if (!cocktail) {
+      return res.status(404).send({message: "Cocktail not found!"});
+    }
+
+    if (cocktail.rates.length !== 0) {
+      let sumRating = 0;
+      cocktail.rates.forEach(rate => {
+        sumRating += rate.rate;
+      });
+
+      await Cocktail.findByIdAndUpdate({_id: id}, {rating: sumRating / cocktail.rates.length});
+    }
+
+    res.send(cocktail);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 router.patch('/:id', auth, permit('admin'), async (req, res) => {
   try {
     const id = req.params.id;
@@ -140,7 +203,7 @@ router.patch('/:id', auth, permit('admin'), async (req, res) => {
 
     res.send(cocktail);
   } catch (e) {
-    res.sendStatus(500);
+    res.status(400).send(e);
   }
 });
 

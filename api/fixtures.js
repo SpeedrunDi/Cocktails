@@ -53,7 +53,8 @@ const run = async () => {
     ],
     rates: [
       {user: admin._id, rate: 5}
-    ]
+    ],
+    rating: 5
   }, {
     title: "Whiskey & Coke",
     user: user._id,
@@ -69,8 +70,10 @@ const run = async () => {
       {name: 'lemon twist', amount: 'optional'},
     ],
     rates: [
-      {user: admin._id, rate: 3}
-    ]
+      {user: admin._id, rate: 3},
+      {user: user._id, rate: 4}
+    ],
+    rating: 3.5
   });
 
 
