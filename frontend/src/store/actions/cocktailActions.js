@@ -95,9 +95,10 @@ export const createCocktail = data => {
         });
       dispatch(createCocktailSuccess());
       dispatch(historyPush('/'));
-      toast.success('Saves successfully');
+      toast.success('Your cocktail will be added after moderation');
     } catch (e) {
       dispatch(createCocktailFailure(e))
+      toast.error("Form must not be empty");
     }
   }
 };

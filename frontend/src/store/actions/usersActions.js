@@ -1,5 +1,6 @@
 import axiosApi from "../../axiosApi";
 import {historyPush} from "./historyActions";
+import {toast} from "react-toastify";
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -84,6 +85,7 @@ export const logoutUser = () => {
 
       dispatch({type: LOGOUT_USER});
       dispatch(historyPush('/login'));
+      toast.success('Logout successfully');
     } catch (e) {
       console.log(e);
     }
